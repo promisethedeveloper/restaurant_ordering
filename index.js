@@ -23,10 +23,14 @@ function createMenuHtml() {
                         <p class="items-details__emoji">${menu.emoji}</p>
                         <div class="menu-details">
                             <p>${menu.name}</p>
-                            <small class="item-ingredients">${menu.ingredients}</small>
+                            <small class="item-ingredients">${
+															menu.ingredients
+														}</small>
                             <p class="item-price">$${menu.price}</p>
                         </div>
-                        <i class="fa-solid fa-circle-plus icon" data-id=${menu.id}></i>
+                        <img class="icon" src=${`assets/add-btn.png`} data-id=${
+			menu.id
+		} />
                     </div>
                     <hr />
                 </div>`;
