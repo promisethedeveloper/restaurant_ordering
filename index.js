@@ -12,7 +12,7 @@ const inputName = document.querySelector(".input-name");
 const inputNumber = document.querySelector(".input-number");
 const inputCvv = document.querySelector(".input-cvv");
 
-const arrayOfOrders = [];
+let arrayOfOrders = [];
 let total = 0;
 
 function createMenuHtml() {
@@ -109,6 +109,8 @@ function getThanks() {
 		divContainer.classList.remove("blur-backgroud");
 		greeting.innerHTML = `<h3>Thank you ${inputName.value}! Your order is on its way!</h3>`;
 		greeting.classList.remove("hide-greeting");
+		// Empty the array of orders
+		arrayOfOrders = [];
 		return greeting;
 	}
 }
@@ -130,6 +132,8 @@ main.addEventListener("click", function (e) {
 	} else if (e.target.className === "pay-btn") {
 		e.preventDefault();
 		getThanks();
+		// Return the total to zero
+		total = 0;
 	}
 });
 
