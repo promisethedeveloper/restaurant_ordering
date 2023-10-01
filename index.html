@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="styles.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
 
-		<!-- Google fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap"
-			rel="stylesheet"
-		/>
-		<title>Restaurant</title>
-	</head>
-	<body>
-		<div class="container">
-			<header>
-				<div class="bg-container">
-					<h1 class="bg-container__content">Promise burger</h1>
-				</div>
-			</header>
-			<main>
-				<section class="menu-container"></section>
-				<section class="orders hide-total">
-					<h3 class="orders-heading">Your Orders</h3>
-					<div class="orders-order"></div>
-					<section class="orders-total"></section>
-					<div class="complete-order">Complete order</div>
-				</section>
-				<section class="complete-order-form hide-card-form">
-					<h2 class="complete-order-form__heading">Enter card details</h2>
-					<form action="#">
-						<input
-							type="text"
-							placeholder="Enter your name"
-							class="input-name"
-						/>
-						<input
-							type="text"
-							placeholder="Enter card number"
-							class="input-number"
-						/>
-						<input type="text" placeholder="Enter CVV" class="input-cvv" />
-						<button type="submit" class="pay-btn">Pay</button>
-					</form>
-				</section>
-				<section class="greeting hide-greeting"></section>
-			</main>
-		</div>
-		<script src="index.js" type="module"></script>
-	</body>
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Restaurant</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="bg-container">
+          <h1 class="bg-container__content">Promise burger</h1>
+        </div>
+      </header>
+      <main>
+        <section class="menu-container"></section>
+        <section class="orders hide-total">
+          <h3 class="orders-heading">Your Orders</h3>
+          <div class="orders-order"></div>
+          <section class="orders-total"></section>
+          <div class="complete-order">Complete order</div>
+        </section>
+        <section class="complete-order-form hide-card-form">
+          <h2 class="complete-order-form__heading">Enter card details</h2>
+          <form action="#">
+            <input
+              type="text"
+              placeholder="Enter your name"
+              class="input-name"
+            />
+            <input
+              type="text"
+              placeholder="Enter card number"
+              class="input-number"
+            />
+            <input type="text" placeholder="Enter CVV" class="input-cvv" />
+            <button type="submit" class="pay-btn">Pay</button>
+          </form>
+        </section>
+        <section class="greeting hide-greeting"></section>
+      </main>
+    </div>
+    <script src="index.js" type="module"></script>
+  </body>
 </html>

@@ -16,65 +16,64 @@ let arrayOfOrders = [];
 let total = 0;
 
 function createMenuHtml() {
-	let html = "";
-	for (let menu of menuArray) {
-		html += `<div class="item">
+  let html = "";
+  for (let { id, emoji, name, ingredients, price } of menuArray) {
+    html += `<div class="item">
                     <div class="item-details">
-                        <p class="items-details__emoji">${menu.emoji}</p>
+                        <p class="items-details__emoji">${emoji}</p>
                         <div class="menu-details">
-                            <p>${menu.name}</p>
-                            <small class="item-ingredients">${
-															menu.ingredients
-														}</small>
-                            <p class="item-price">$${menu.price}</p>
+                            <p>${name}</p>
+                            <small class="item-ingredients">${ingredients}</small>
+                            <p class="item-price">$${price}</p>
                         </div>
-                        <img class="icon" src=${`assets/add-btn.png`} data-id=${
-			menu.id
-		} />
+                        <img class="icon" src=${`assets/add-btn.png`} data-id=${id} />
                     </div>
                     <hr />
                 </div>`;
-	}
-	return html;
+  }
+  return html;
 }
 
 function getSingleOrder(id) {
-	const item = menuArray.filter((item) => item.id === id)[0];
-	arrayOfOrders.push(item);
-	// Show the heading "Your Order"
-	orderHeading.classList.remove("hide-total");
-	createOrderHtml(arrayOfOrders);
+  const item = menuArray.filter((item) => item.id === id)[0];
+  arrayOfOrders.push(item);
+  // Show the heading "Your Order"
+  orderHeading.classList.remove("hide-total");
+  createOrderHtml(arrayOfOrders);
 
-	greeting.classList.add("hide-greeting");
-	return addToTotal(item);
+  greeting.classList.add("hide-greeting");
+  return addToTotal(item);
 }
 
 function removeSingleOrder(itemId, index) {
-	const itemToRemove = arrayOfOrders.filter((item) => item.id === itemId)[0];
-	arrayOfOrders.splice(index, 1);
-	createOrderHtml(arrayOfOrders);
-	return subtractFromTotal(itemToRemove);
+  const itemToRemove = arrayOfOrders.filter((item) => item.id === itemId)[0];
+  arrayOfOrders.splice(index, 1);
+  createOrderHtml(arrayOfOrders);
+  return subtractFromTotal(itemToRemove);
 }
 
 function addToTotal(item) {
-	total += item.price;
-	showTotal.innerHTML = `<div class="total_price">Total price:</div>
+  total += item.price;
+  showTotal.innerHTML = `<div class="total_price">Total price:</div>
 								<hr />
 						   <div class="total_price">$${total}</div>`;
-	return showTotal;
+  return showTotal;
 }
 
 function subtractFromTotal(itemToRemove) {
-	total -= itemToRemove.price;
-	showTotal.innerHTML = `<div class="total_price">Total price:</div>
-	 					   <div class="total_price">$${total}</div>`;
-	return showTotal;
+  if (itemToRemove !== undefined) {
+    total -= itemToRemove.price;
+    showTotal.innerHTML = `<div class="total_price">Total price:</div>
+								<div class="total_price">$${total}</div>`;
+
+    return showTotal;
+  }
 }
 
 function createOrderHtml(orderData) {
-	if (orderData.length) {
-		const allOrders = orderData.map((order, index) => {
-			return `<div class="orders-order__single">
+  if (orderData.length > 0) {
+    const allOrders = orderData.map((order, index) => {
+      return `<div class="orders-order__single">
 					<div class="order-name">
 						${order.name}
 						<span data-remove=${order.id} data-index="${index}"
@@ -85,40 +84,45 @@ function createOrderHtml(orderData) {
 						$${order.price}
 					</div>
 				</div>`;
-		});
-		showOrders.innerHTML = allOrders.join("");
-		return showOrders;
-	}
+    });
+
+    showOrders.innerHTML = allOrders.join("");
+    return showOrders;
+  } else {
+    showOrders.innerHTML = "";
+    orderHeading.classList.add("hide-total");
+  }
 }
 
 document.addEventListener("click", function (e) {
-	if (e.target.dataset.id) {
-		getSingleOrder(Number(e.target.dataset.id));
-	} else if (e.target.dataset.remove) {
-		removeSingleOrder(
-			Number(e.target.dataset.remove),
-			Number(e.target.dataset.index)
-		);
-	}
+  if (e.target.dataset.id) {
+    getSingleOrder(Number(e.target.dataset.id));
+  } else if (e.target.dataset.remove) {
+    removeSingleOrder(
+      Number(e.target.dataset.remove),
+      Number(e.target.dataset.index)
+    );
+    createOrderHtml(arrayOfOrders);
+  }
 });
 
 function getThanks() {
-	if (inputName.value && inputNumber.value && inputCvv.value) {
-		orderHeading.classList.add("hide-total");
-		cardForm.classList.add("hide-card-form");
-		divContainer.classList.remove("blur-backgroud");
-		greeting.innerHTML = `<h3>Thank you ${inputName.value}! Your order is on its way!</h3>`;
-		greeting.classList.remove("hide-greeting");
-		// Empty the array of orders
-		arrayOfOrders = [];
-		return greeting;
-	}
+  if (inputName.value && inputNumber.value && inputCvv.value) {
+    orderHeading.classList.add("hide-total");
+    cardForm.classList.add("hide-card-form");
+    divContainer.classList.remove("blur-backgroud");
+    greeting.innerHTML = `<h3>Thank you ${inputName.value}! Your order is on its way!</h3>`;
+    greeting.classList.remove("hide-greeting");
+    // Empty the array of orders
+    arrayOfOrders = [];
+    return greeting;
+  }
 }
 
 function completeOrder() {
-	cardForm.classList.remove("hide-card-form");
-	divContainer.classList.add("blur-backgroud");
-	return divContainer;
+  cardForm.classList.remove("hide-card-form");
+  divContainer.classList.add("blur-backgroud");
+  return divContainer;
 }
 
 /**
@@ -127,18 +131,18 @@ function completeOrder() {
  **/
 
 main.addEventListener("click", function (e) {
-	if (e.target.className === "complete-order") {
-		completeOrder();
-	} else if (e.target.className === "pay-btn") {
-		e.preventDefault();
-		getThanks();
-		// Return the total to zero
-		total = 0;
-	}
+  if (e.target.className === "complete-order") {
+    completeOrder();
+  } else if (e.target.className === "pay-btn") {
+    e.preventDefault();
+    getThanks();
+    // Return the total to zero
+    total = 0;
+  }
 });
 
 function render() {
-	document.querySelector(".menu-container").innerHTML = createMenuHtml();
+  document.querySelector(".menu-container").innerHTML = createMenuHtml();
 }
 
 render();
